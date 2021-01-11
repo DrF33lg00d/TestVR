@@ -14,7 +14,11 @@ class HOMEWORK_API APlayerVRPawn : public APawn
 public:
 	// Sets default values for this pawn's properties
 	APlayerVRPawn();
-
+	bool bKMControl = true;
+	float MaxSpeed = 500.0f;
+	bool bCanTeleport = false;
+	bool bIsTeleportForward = true;
+	 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
