@@ -27,4 +27,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Test_Drop")
 		void Drop();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Test_Throw")
+		void Throw();
 };

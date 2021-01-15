@@ -59,3 +59,14 @@ void ASimpleColorActor::Drop_Implementation()
 	auto rules = FDetachmentTransformRules(EDetachmentRule::KeepWorld, true);
 	DetachFromActor(rules);
 }
+
+void ASimpleColorActor::Throw_Implementation()
+{
+	StaticMeshComponent->SetSimulatePhysics(true);
+	bIsGripped = false;
+	FVector impulse = Hand->GetForwardVector();
+	Hand = nullptr;
+	auto rules = FDetachmentTransformRules(EDetachmentRule::KeepWorld, true);
+	DetachFromActor(rules);
+	StaticMeshComponent->AddImpulseAtLocation(impulse * 5, FVector(0.0f, 0.0f, 0.0f), NAME_None);
+}

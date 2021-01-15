@@ -43,6 +43,10 @@ public:
 		void Drop();
 	virtual void Drop_Implementation() override;
 
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Test_Throw")
+		void Throw();
+	virtual void Throw_Implementation() override;
+
 	bool bIsGripped = false;
 		
 protected:
