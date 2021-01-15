@@ -11,13 +11,14 @@ ASimpleColorActor::ASimpleColorActor()
 
     StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
     RootComponent = StaticMeshComponent;
+    StaticMeshComponent->SetSimulatePhysics(true);
+    StaticMeshComponent->SetMassOverrideInKg(NAME_None, Mass);
 }
 
 // Called when the game starts or when spawned
 void ASimpleColorActor::BeginPlay()
 {
     Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -39,4 +40,33 @@ void ASimpleColorActor::Tick(float DeltaTime)
 		    break;
     }
     StaticMeshComponent->SetVectorParameterValueOnMaterials(FName("Color"), Color);
+}
+
+void ASimpleColorActor::Hold_Implementation(USceneComponent* SceneObject)
+{
+	//StaticMeshComponent->SetSimulatePhysics(false);
+	bIsGripped = true;
+	Hand = SceneObject;
+	auto strictRules = FAttachmentTransformRules(EAttachmentRule::KeepWorld, true);
+	AttachToComponent(SceneObject, strictRules);
+}
+
+void ASimpleColorActor::Drop_Implementation()
+{
+	StaticMeshComponent->SetSimulatePhysics(true);
+	bIsGripped = false;
+	Hand = nullptr;
+	auto rules = FDetachmentTransformRules(EDetachmentRule::KeepWorld, true);
+	DetachFromActor(rules);
+}
+
+void ASimpleColorActor::Throw_Implementation()
+{
+	StaticMeshComponent->SetSimulatePhysics(true);
+	bIsGripped = false;
+	FVector impulse = Hand->GetForwardVector();
+	Hand = nullptr;
+	auto rules = FDetachmentTransformRules(EDetachmentRule::KeepWorld, true);
+	DetachFromActor(rules);
+	StaticMeshComponent->AddImpulseAtLocation(impulse * 5, FVector(0.0f, 0.0f, 0.0f), NAME_None);
 }

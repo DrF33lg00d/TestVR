@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Components/CapsuleComponent.h"
 #include "PlayerVRPawn.generated.h"
+
 
 UCLASS()
 class HOMEWORK_API APlayerVRPawn : public APawn
@@ -18,6 +20,9 @@ public:
 	float MaxSpeed = 500.0f;
 	bool bCanTeleport = false;
 	bool bIsTeleportForward = true;
+
+	UPROPERTY(EditAnywhere)
+	UCapsuleComponent* CapsuleBody;
 	 
 protected:
 	// Called when the game starts or when spawned
