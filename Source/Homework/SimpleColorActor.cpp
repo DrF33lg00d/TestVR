@@ -42,7 +42,7 @@ void ASimpleColorActor::Tick(float DeltaTime)
     StaticMeshComponent->SetVectorParameterValueOnMaterials(FName("Color"), Color);
 }
 
-void ASimpleColorActor::Hold(USceneComponent* SceneObject)
+void ASimpleColorActor::Hold_Implementation(USceneComponent* SceneObject)
 {
 	//StaticMeshComponent->SetSimulatePhysics(false);
 	bIsGripped = true;
@@ -51,7 +51,7 @@ void ASimpleColorActor::Hold(USceneComponent* SceneObject)
 	AttachToComponent(SceneObject, strictRules);
 }
 
-void ASimpleColorActor::Drop()
+void ASimpleColorActor::Drop_Implementation()
 {
 	StaticMeshComponent->SetSimulatePhysics(true);
 	bIsGripped = false;

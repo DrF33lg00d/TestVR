@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
-//#include "TestInterfaceV1.h"
+#include "TestInterfaceV1.h"
 #include "SimpleColorActor.generated.h"
 
 UENUM()
@@ -17,7 +17,7 @@ enum class EColor : uint8 {
 
 
 UCLASS()
-class HOMEWORK_API ASimpleColorActor : public AActor//, public ITestInterfaceV1
+class HOMEWORK_API ASimpleColorActor : public AActor, public ITestInterfaceV1
 {
 	GENERATED_BODY()
 	
@@ -35,13 +35,13 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	/*UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Test_Hold")
-		void Hold(USceneComponent* SceneObject);*/
-	virtual void Hold(USceneComponent* SceneObject);
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Test_Hold")
+		void Hold(USceneComponent* SceneObject);
+	virtual void Hold_Implementation(USceneComponent* SceneObject) override;
 
-	/*UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Test_Drop")
-		void Drop();*/
-	virtual void Drop();
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Test_Drop")
+		void Drop();
+	virtual void Drop_Implementation() override;
 
 	bool bIsGripped = false;
 		

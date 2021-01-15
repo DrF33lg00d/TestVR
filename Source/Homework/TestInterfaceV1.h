@@ -25,6 +25,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Test_Hold")
 		void Hold(USceneComponent* SceneObject);
 
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Test_Drop")
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Test_Drop")
 		void Drop();
 };
