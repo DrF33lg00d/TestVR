@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "TestInterfaceV1.h"
+#include "ThrowInterface.h"
 #include "SimpleColorActor.generated.h"
 
 UENUM()
@@ -17,7 +18,7 @@ enum class EColor : uint8 {
 
 
 UCLASS()
-class HOMEWORK_API ASimpleColorActor : public AActor, public ITestInterfaceV1
+class HOMEWORK_API ASimpleColorActor : public AActor, public ITestInterfaceV1, public IThrowInterface
 {
 	GENERATED_BODY()
 	
