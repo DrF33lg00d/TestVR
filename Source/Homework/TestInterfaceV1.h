@@ -13,9 +13,6 @@ class UTestInterfaceV1 : public UInterface
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
 class HOMEWORK_API ITestInterfaceV1
 {
 	GENERATED_BODY()

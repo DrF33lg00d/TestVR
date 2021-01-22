@@ -44,7 +44,6 @@ void ASimpleColorActor::Tick(float DeltaTime)
 
 void ASimpleColorActor::Hold_Implementation(USceneComponent* SceneObject)
 {
-	//StaticMeshComponent->SetSimulatePhysics(false);
 	bIsGripped = true;
 	Hand = SceneObject;
 	auto strictRules = FAttachmentTransformRules(EAttachmentRule::KeepWorld, true);
@@ -62,11 +61,12 @@ void ASimpleColorActor::Drop_Implementation()
 
 void ASimpleColorActor::Throw_Implementation()
 {
+	//this->Throw();
 	StaticMeshComponent->SetSimulatePhysics(true);
 	bIsGripped = false;
 	FVector impulse = Hand->GetForwardVector();
 	Hand = nullptr;
 	auto rules = FDetachmentTransformRules(EDetachmentRule::KeepWorld, true);
 	DetachFromActor(rules);
-	StaticMeshComponent->AddImpulseAtLocation(impulse * 5, FVector(0.0f, 0.0f, 0.0f), NAME_None);
+	StaticMeshComponent->AddImpulseAtLocation(impulse * 2, FVector(0.0f, 0.0f, 0.0f), NAME_None);
 }
