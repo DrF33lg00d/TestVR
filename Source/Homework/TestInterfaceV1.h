@@ -7,15 +7,12 @@
 #include "TestInterfaceV1.generated.h"
 
 // This class does not need to be modified.
-UINTERFACE(MinimalAPI)
+UINTERFACE(MinimalAPI, Blueprintable)
 class UTestInterfaceV1 : public UInterface
 {
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
 class HOMEWORK_API ITestInterfaceV1
 {
 	GENERATED_BODY()
@@ -27,7 +24,4 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Test_Drop")
 		void Drop();
-
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Test_Throw")
-		void Throw();
 };

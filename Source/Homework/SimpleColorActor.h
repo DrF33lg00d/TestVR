@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "TestInterfaceV1.h"
+#include "ThrowInterface.h"
 #include "SimpleColorActor.generated.h"
 
 UENUM()
@@ -17,7 +18,7 @@ enum class EColor : uint8 {
 
 
 UCLASS()
-class HOMEWORK_API ASimpleColorActor : public AActor, public ITestInterfaceV1
+class HOMEWORK_API ASimpleColorActor : public AActor, public ITestInterfaceV1, public IThrowInterface
 {
 	GENERATED_BODY()
 	
@@ -27,11 +28,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UStaticMeshComponent* StaticMeshComponent;
 
-	UPROPERTY(EditAnywhere)
-		EColor CurrentColor;
-
-	UPROPERTY(EditAnywhere)
-		float Mass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (Bitmask, BitmaskEnum = "EColor"))
+		uint8  CurrentColor;
 
 	virtual void Tick(float DeltaTime) override;
 
