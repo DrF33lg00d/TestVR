@@ -10,9 +10,8 @@ ASimpleColorActor::ASimpleColorActor()
     PrimaryActorTick.bCanEverTick = true;
 
     StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
-    RootComponent = StaticMeshComponent;
+    //RootComponent = StaticMeshComponent;
     StaticMeshComponent->SetSimulatePhysics(true);
-    StaticMeshComponent->SetMassOverrideInKg(NAME_None, Mass);
 }
 
 // Called when the game starts or when spawned
@@ -27,19 +26,11 @@ void ASimpleColorActor::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
     //StaticMeshComponent->AddRelativeRotation(FRotator(0.f, 0.f, 1.f));
 
-    FVector Color(0.f, 0.f, 0.f);
-    switch (CurrentColor)	{
-	    case EColor::Red:
-		    Color.X = 1.f;
-		    break;
-	    case EColor::Green:
-		    Color.Y = 1.f;
-		    break;
-	    case EColor::Blue:
-		    Color.Z = 1.f;
-		    break;
-    }
-    StaticMeshComponent->SetVectorParameterValueOnMaterials(FName("Color"), Color);
+    FLinearColor Color;
+	Color.R = (((CurrentColor) & (1 << static_cast<uint32>(EColor::Red))) > 0) ? 1.0f : 0.0f;
+	Color.G = (((CurrentColor) & (1 << static_cast<uint32>(EColor::Green))) > 0) ? 1.0f : 0.0f;
+	Color.B = (((CurrentColor) & (1 << static_cast<uint32>(EColor::Blue))) > 0) ? 1.0f : 0.0f;
+    StaticMeshComponent->SetVectorParameterValueOnMaterials(FName("Color"), FVector(Color.R, Color.G, Color.B));
 }
 
 void ASimpleColorActor::Hold_Implementation(USceneComponent* SceneObject)
@@ -64,9 +55,11 @@ void ASimpleColorActor::Throw_Implementation()
 	//this->Throw();
 	StaticMeshComponent->SetSimulatePhysics(true);
 	bIsGripped = false;
-	FVector impulse = Hand->GetForwardVector();
+	FVector forward_vec = Hand->GetForwardVector();
 	Hand = nullptr;
 	auto rules = FDetachmentTransformRules(EDetachmentRule::KeepWorld, true);
 	DetachFromActor(rules);
-	StaticMeshComponent->AddImpulseAtLocation(impulse * 2, FVector(0.0f, 0.0f, 0.0f), NAME_None);
+	
+	StaticMeshComponent->AddImpulse(forward_vec * StaticMeshComponent->GetMass() * 1000, NAME_None, false);
+	//StaticMeshComponent->AddImpulseAtLocation(forward_vec * 5000, FVector(0.0f, 0.0f, 0.0f), NAME_None);
 }

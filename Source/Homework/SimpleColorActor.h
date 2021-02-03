@@ -28,11 +28,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UStaticMeshComponent* StaticMeshComponent;
 
-	UPROPERTY(EditAnywhere)
-		EColor CurrentColor;
-
-	UPROPERTY(EditAnywhere)
-		float Mass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (Bitmask, BitmaskEnum = "EColor"))
+		uint8  CurrentColor;
 
 	virtual void Tick(float DeltaTime) override;
 
