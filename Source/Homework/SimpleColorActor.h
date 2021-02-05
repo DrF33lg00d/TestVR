@@ -45,6 +45,7 @@ public:
 		void Throw();
 	virtual void Throw_Implementation() override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsGripped = false;
 		
 protected:
